@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block heading %}Zpětná vazba{% endblock %}
+
+{# ------------------------------------------------------------- Body #}
+
+{% block body %}
+
+<p class="rppl">
+  Děkujeme za účast. Vyplňte prosím ještě tento krátký formulář.
+  Komentář není povinný.
+</p>
+
+{% for error in errors %}
+  <p class="rppl error">{{ error }}</p>
+{% endfor %}
+
+<form method=post action="{{ url_for('dispatcher') }}">
+  <br>
+  <br>
+
+  <div>
+    <label class="rppl">do jaké míry probíhala konverzace přirozeně (jako ve škole):</label>
+    <br>
+    {% for i in range(1, 6) %}
+      <input id=rating-{{ i }} name=rating type=radio value={{ i }}>
+      <label for=rating-{{ i }} class="rppl">{{ i }}</label>
+    {% endfor %}
+  </div>
+
+  <div class="yo">
+    <label class="rppl">komentář k povaze či chování chatbota:</label>
+    <br>
+    <textarea name=comment class="odddp" type=text autofocus></textarea>
+  </div>
+
+  <div class="butt3">
+    <input class="pdo" type=submit value=odeslat>
+  </div>
+</form>
+
+{% endblock %}
+
+{# -------------------------------------------------------------- CSS #}
+
+{% block head %}
+
+<style>
+.error {
+  border: solid;
+  border-color: red;
+  color: red;
+}
+</style>
+
+{% endblock %}

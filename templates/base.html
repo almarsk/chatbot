@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+  <meta charset=UTF-8>
+  <meta name=viewport content="width=device-width, initial-scale=1.0">
+  <meta http-equiv=X-UA-Compatible content="ie=edge">
+  <title>Testování chatbota</title>
+
+{# -------------------------------------------------------------- CSS #}
+
+  <style>
+body {
+  font-family: Helvetica;
+  background-color: {{ g.bg_color | default("DarkKhaki", True) }};
+}
+
+.sah {
+  float: left;
+  margin-right: 30px;
+}
+
+.vlož {
+  margin-left: 30px;
+  margin-top: 0px;
+}
+
+.brat {
+  float: left;
+  width:50%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing:border-box;
+  height: 280px;
+}
+
+.repert {
+  margin-left: 75px;
+}
+
+.rplz ul:nth-child(even) {
+  background: grey;
+}
+
+.clr {
+  clear:both;
+}
+
+.odp {
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 90%;
+  font-family: monospace;
+  font-size: 18px;
+}
+
+.uk {
+  margin-top: 70px;
+  margin-left: 10px;
+  background-color: #FFF8DC;
+  font-family: monospace;
+}
+
+.rppl {
+  margin-left: 10px;
+  margin-right: 10%;
+  background-color: {{ g.reply_bg | default("#d0cc95", True) }};
+  margin-top: 25px;
+  font-family: monospace;
+  font-size: 25px;
+}
+
+.vkld {
+  margin-left: 25px;
+  margin-right: 25px;
+  border: solid;
+  border-color: {{ g.reply_outline | default("#FFFCDD", True) }};
+}
+
+.ndps {
+  margin-left: 25px;
+  margin-right: 25px;
+  color: {{ g.heading_color | default("#FFE4C4", True) }};
+  font-size: 35px;
+  font-family: monospace;
+  outline: #000;
+  text-shadow: -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.pdo {
+  background-color: #FFF8DC;
+  font-family: monospace;
+  margin-left: 10px;
+}
+
+.odddp {
+  vertical-align: text-top;
+  resize: none;
+  height: 150px;
+  width: 400px;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.yo {
+  margin-top: 15px;
+}
+
+  </style>
+
+  {% block head %}{% endblock %}
+</head>
+
+{# ------------------------------------------------------------- Body #}
+
+<body>
+  <h1 class="ndps">
+    {% block heading %}{% endblock %}
+  </h1>
+  <br>
+
+  <div class="vkld">
+    {% block body %}{% endblock %}
+  </div>
+
+  {% block js %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block heading %}{{ scenario }}{% endblock %}
+
+{% block body %}
+
+<p class="rppl">
+  Děkujeme, že jste se rozhodli účastnit vývoje chatbota {{ scenario }}. <br><br>
+  {{ scenario_desc }} <br><br>
+  Vyplňte prosím svou uživatelskou přezdívku a stiskněte tlačítko začít.<br><br>
+  Pokud robot přestane dávat smysl, stiskněte tlačítko "nesmysl".
+</p>
+
+<form method=post action="{{ url_for('dispatcher') }}">
+  <input name=nick id=us class="odp" type=text autofocus>
+  <div class="butt3">
+    <input class="pdo" type=submit value=začít>
+    <br>
+  </div>
+</form>
+
+{% endblock %}

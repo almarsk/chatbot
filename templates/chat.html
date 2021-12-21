@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block heading %}{{ scenario }}{% endblock %}
+
+{# ------------------------------------------------------------- Body #}
+
+{% block body %}
+
+<div id=loader class="loader"></div>
+
+<div id=everything-else class="display-none">
+  <p id=chatbot-reply class="rppl">{{ bot_reply }}</p>
+
+  <form id=chat-form method=post action="{{ url_for('dispatcher') }}">
+    <input id=answer name=answer class="odp" type=text>
+    <input id=reaction-ms name=reaction-ms type=hidden>
+    <div class="butt3">
+      <input class="pdo" type=submit value=odpovědět>
+    </div>
+  </form>
+
+  <form id=abort-form method=post action="{{ url_for('dispatcher', abort=1) }}">
+    <div class="butt3">
+      <input class="uk" type=submit value="nesmysl">
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+{# --------------------------------------------------------------- JS #}
+
+{% block js %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var start_time;
+  var delay = {{ config.REPLY_DELAY_MS }};
+
+  var loader = document.getElementById("loader");
+  var everything_else = document.getElementById("everything-else");
+
+  var chat_form = document.getElementById("chat-form");
+  var reaction_ms = document.getElementById("reaction-ms");
+  var answer = document.getElementById("answer");
+
+  chat_form.addEventListener("submit", function() {
+    reaction_ms.value = Date.now() - start_time;
+  });
+
+  setTimeout(function() {
+    loader.classList.add("display-none");
+    everything_else.classList.remove("display-none");
+    answer.focus();
+    start_time = Date.now();
+  }, delay);
+});
+</script>
+
+{% endblock %}
+
+{# -------------------------------------------------------------- CSS #}
+
+{% block head %}
+
+<style>
+.display-none {
+  display: none;
+}
+
+/* Převzato z https://projects.lukehaas.me/css-loaders/, jsou tam k
+ * dispozici další varianty, nebo případně googlit "css spinner", "css
+ * loader" či něco na ten způsob.
+ */
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #ffffff;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #ffffff;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+</style>
+
+{% endblock %}
